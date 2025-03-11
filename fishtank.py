@@ -1,6 +1,8 @@
 import pygame
 import random
 import time
+import button
+
 
 
 pygame.init()
@@ -39,8 +41,25 @@ class Fish:
     def draw(self, screen):
         screen.blit(self.fishImage, (self.xpos, self.ypos))
 
+    def Add(self, button):
+        count = []
+        
+
+        for fish in count:
+            self.draw()
+        
+
+
 # instantiate a fish object
 fish = Fish()
+addButton = button()
+
+
+# player variables
+xpos, ypos = 400
+mousePos = (xpos, ypos)
+
+
 
 
 running = True
