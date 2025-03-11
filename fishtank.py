@@ -10,8 +10,8 @@ clock = pygame.time.Clock()
 
 class Fish:
     def __init__(self):
-      #  self.fishImage = pygame.image.load("fish.png").convert_alpha()
-       # pygame.Surface.set_colorkey (self.fishImage, [255,0,255])
+        self.fishImage = pygame.image.load("nemo.png").convert_alpha()
+        pygame.Surface.set_colorkey (self.fishImage, [255,0,255])
         self.xpos = random.randint(0, 750)
         self.ypos = random.randint(0, 550)
         self.speed = 1
@@ -37,8 +37,7 @@ class Fish:
             self.yDir *= -1
 
     def draw(self, screen):
-        pygame.draw.rect(screen, (255,255,255), (self.xpos, self.ypos, 10, 10)) 
-        
+        screen.blit(self.fishImage, (self.xpos, self.ypos))
 
 # instantiate a fish object
 fish = Fish()
