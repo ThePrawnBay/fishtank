@@ -9,6 +9,7 @@ pygame.init()
 screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Fish Simulator")
 clock = pygame.time.Clock() 
+count = 1
 
 class Fish:
     def __init__(self):
@@ -41,24 +42,28 @@ class Fish:
     def draw(self, screen):
         screen.blit(self.fishImage, (self.xpos, self.ypos))
 
-    def Add(self, button):
-        count = []
-        
+def AddFish(button,count):
+    if button.pressed(event, mousePos,count):
+        print(count)
 
-        for fish in count:
-            self.draw()
+
         
 
 
 # instantiate a fish object
-fish = Fish()
-addButton = button()
+
+
+addbutton= button.Button(600,200,20,20,(255,255,255), 'hello')
+
+
 
 
 # player variables
-xpos, ypos = 400
-mousePos = (xpos, ypos)
 
+
+fish = []
+for i in range(count): 
+    fish.append(Fish())
 
 
 
@@ -71,7 +76,11 @@ while running:# Game loop#######################################################
             running = False
 
     #physics/update section--------------------------
-    fish.move()
+    mousePos = pygame.mouse.get_pos()
+    AddFish(addbutton,count)
+
+
+  
 
 
     #render section----------------------------------
@@ -79,7 +88,12 @@ while running:# Game loop#######################################################
     screen.fill((0, 150, 255))
 
     # Draw the fish
-    fish.draw(screen)
+
+    for i in range(len(fish)):
+        fish[i].draw(screen)
+        fish[i].move()
+    addbutton.draw(screen)
+
 
     # Update the display
     pygame.display.flip()
