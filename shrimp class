@@ -1,0 +1,77 @@
+import pygame
+import random
+import time
+ 
+ 
+pygame.init()
+screen = pygame.display.set_mode((800,600))
+pygame.display.set_caption("Fish Simulator")
+clock = pygame.time.Clock()
+
+
+
+class shrimp:
+    def __init__(self):
+        self.shrimpImage = pygame.image.load("shrimpy.png").convert_alpha()
+        self.shrimpImage2 = pygame.image.load("shrimpy(2).png").convert_alpha()
+        pygame.Surface.set_colorkey(self.shrimpImage, [155,0,155])
+        self.xpos = random.randint(0, 700)
+        self.ypos = 375
+        self.speed = 7
+        self.xDir = random.randint(-1,1)
+        #self.yDir = random.randint(-1,1)
+        self.last_change_time = time.time() #grab starting time
+        
+    def move(self):
+        # Move the shrimp
+        self.xpos += self.xDir* self.speed
+        #self.ypos += self.yDir * self.speed
+
+        # Change direction every 3 seconds
+        if time.time() - self.last_change_time > 3:  
+            self.xDir = random.randint(-1,1)
+            #self.yDir = random.randint(-1,1)
+            self.last_change_time = time.time() #reset the time
+
+        # Check for collision with walls and change direction
+        if self.xpos <= 0 or self.xpos >= 650:
+            self.xDir *= -1
+        #if self.ypos <= 0 or self.ypos>= 500:
+            #self.yDir *= -1
+
+    def draw(self, screen):
+        if self.xDir == 1: #check if xDir is positive, if yes, draw this one
+            screen.blit(self.shrimpImage, (self.xpos, self.ypos))
+        else:
+            screen.blit(self.shrimpImage2, (self.xpos, self.ypos))
+        #else draw shrimpImage2
+
+#instantiate a fish object
+shrimp = shrimp()
+
+        
+running = True
+while running:# Game loop########################################################
+    clock.tick(60)
+    #input/event section-----------------------------
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+ 
+    #physics/update section--------------------------
+    shrimp.move()
+ 
+ 
+    #render section----------------------------------
+    # Fill the screen with a background color
+    screen.fill((0, 150, 255))
+ 
+    # Draw the fish
+    shrimp.draw(screen)
+ 
+    # Update the display
+    pygame.display.flip()
+ 
+    #end of game loop!#######################################################
+
+pygame.quit()
